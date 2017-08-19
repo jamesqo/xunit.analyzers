@@ -177,7 +177,7 @@ namespace Xunit.Analyzers
         {
             while (type != null)
             {
-                var memberSymbol = type.GetMembers(memberName).FirstOrDefault();
+                var memberSymbol = type.GetMember(memberName);
                 if (memberSymbol != null)
                     return memberSymbol;
 

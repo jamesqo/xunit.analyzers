@@ -27,7 +27,7 @@ namespace Xunit.Analyzers.FixProviders
             if (declaringType == null)
                 return;
 
-            var member = declaringType.GetMembers(diagnostic.Properties["MemberName"]).FirstOrDefault();
+            var member = declaringType.GetMember(diagnostic.Properties["MemberName"]);
             if (member == null)
                 return;
 

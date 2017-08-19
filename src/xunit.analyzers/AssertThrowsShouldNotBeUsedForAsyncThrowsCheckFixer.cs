@@ -74,7 +74,7 @@ namespace Xunit.Analyzers
 
             var semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
             var methodSymbol = semanticModel.GetSymbolInfo(method.ReturnType, cancellationToken).Symbol as ITypeSymbol;
-            var taskType = semanticModel.Compilation.GetTypeByMetadataName(typeof(Task).FullName);
+            var taskType = semanticModel.Compilation.GetTypeByMetadataName(Constants.Types.SystemThreadingTasksTask);
 
             if (taskType.IsAssignableFrom(methodSymbol))
                 return method.ReturnType;

@@ -63,25 +63,14 @@ namespace Xunit.Analyzers
         {
             var methodSymbol = symbolInfo.Symbol;
             var containingType = methodSymbol.ContainingType;
-            var genericCollectionType = GetICollectionType(containingType, context.Compilation);
+            var genericCollectionType = containingType.GetGenericInterfaceImplementation(
+                context.Compilation.GetSpecialType(SpecialType.System_Collections_Generic_ICollection_T));
             if (genericCollectionType == null)
                 return false;
 
-            var genericCollectionContainsSymbol = genericCollectionType
-                .GetMembers(nameof(ICollection<int>.Contains))
-                .FirstOrDefault();
-
-            if (genericCollectionContainsSymbol == null)
-                return false;
-
+            var genericCollectionContainsSymbol = genericCollectionType.GetMember(nameof(ICollection<int>.Contains));
             var genericCollectionSymbolImplementation = containingType.FindImplementationForInterfaceMember(genericCollectionContainsSymbol);
-            return genericCollectionSymbolImplementation?.Equals(symbolInfo.Symbol) ?? false;
-        }
-
-        private static INamedTypeSymbol GetICollectionType(INamedTypeSymbol implementingType, Compilation compilation)
-        {
-            var openCollectionType = compilation.GetSpecialType(SpecialType.System_Collections_Generic_ICollection_T);
-            return implementingType.AllInterfaces.FirstOrDefault(i => i.OriginalDefinition == openCollectionType);
+            return genericCollectionSymbolImplementation?.Equals(methodSymbol) ?? false;
         }
     }
 }
