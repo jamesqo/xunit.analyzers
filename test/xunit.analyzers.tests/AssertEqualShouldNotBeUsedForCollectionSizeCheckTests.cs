@@ -16,7 +16,7 @@ namespace Xunit.Analyzers
             "new System.Collections.Generic.HashSet<int>().Count",
             "System.Collections.Immutable.ImmutableArray.Create<int>().Length",
             "new System.Collections.ObjectModel.Collection<int>().Count",
-            "new System.Collections.ObjectModel.ReadOnlyCollection<int>().Count",
+            "new System.Collections.Generic.List<int>().AsReadOnly().Count",
             "System.Linq.Enumerable.Empty<int>().Count()",
         };
 
@@ -28,7 +28,7 @@ namespace Xunit.Analyzers
             { "new System.Collections.Generic.HashSet<int>().Count", 3 },
             { "System.Collections.Immutable.ImmutableArray.Create<int>().Length", 42 },
             { "new System.Collections.ObjectModel.Collection<int>().Count", 13 },
-            { "new System.Collections.ObjectModel.ReadOnlyCollection<int>().Count", 2 },
+            { "new System.Collections.Generic.List<int>().AsReadOnly().Count", 2 },
             { "System.Linq.Enumerable.Empty<int>().Count()", 354 },
         };
 
